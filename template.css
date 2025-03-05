@@ -54,27 +54,7 @@ header.scrolled {
     height: 40px;
 }
 
-/* Navigation */
-.nav-links {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-}
-
-.nav-links li a {
-    color: #000;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-.nav-links li a.active,
-.nav-links li a:hover {
-    color: #fff;
-    background-color: #4d91df;
-}
-
+/* Creative Hamburger Menu */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -86,13 +66,57 @@ header.scrolled {
     right: 20px;
     padding: 10px;
     border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
 
 .hamburger .line {
     width: 25px;
     height: 3px;
-    background-color: #000;
-    transition: all 0.3s ease;
+    background-color: rgb(19, 18, 18);
+    /* White lines */
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Creative "X" Animation */
+.hamburger.active .line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+    background-color: white;
+}
+
+.hamburger.active .line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+    background-color: white;
+}
+
+/* Navbar Overlay */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: #ffffff;
+    /* Dark text */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header.scrolled .nav-links a {
+    color: black;
+    /* Ensuring it remains black after scrolling */
+}
+
+.nav-links li a:hover {
+    color: white;
+    background-color: #4d91df;
+    /* Blue background on hover */
 }
 
 /* Template Section */
@@ -334,6 +358,10 @@ footer {
         padding: 15px 5%;
     }
 
+    .logo h2 {
+        font-size: 1.2rem;
+    }
+
     .hamburger {
         display: flex;
     }
@@ -341,23 +369,47 @@ footer {
     .nav-links {
         position: fixed;
         top: 0;
-        left: -100%;
+        left: 0;
         width: 100%;
         height: 100vh;
         background-color: rgba(74, 144, 226, 0.95);
+        /* Blue overlay */
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: left 0.3s ease-in-out;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
     }
 
     .nav-links.active {
-        left: 0;
+        transform: translateX(0);
     }
 
     .nav-links li a {
         font-size: 1.5rem;
+        padding: 10px 20px;
         color: white;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+        color: #6a82fb;
+        /* Lighter blue on hover */
+        transform: translateX(10px);
+    }
+
+    header.scrolled .hamburger .line {
+        background-color: #6a82fb;
+    }
+
+    header.scrolled .nav-links a {
+        color: white;
+    }
+
+    /* Prevent scrolling when navbar is open */
+    body.nav-open {
+        overflow: hidden;
     }
 
     .template-grid-heading h1 {
